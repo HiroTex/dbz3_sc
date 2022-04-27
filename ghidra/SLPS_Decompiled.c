@@ -1,17 +1,39 @@
-#include <stdbool.h>
+#include "SLPS.h"
 
-typedef unsigned char byte;
-typedef unsigned int uint;
-typedef unsigned short ushort;
-typedef unsigned long ulong;
+// FUN_001c3c40
+// param_1 = Animation Start Offset
+// param_2 = Animation ID
+void Anm_Set_NULL_Position(long param_1, ulong param_2)
 
-unsigned int DAT_002ff10c;
-unsigned int DAT_002ff11c;
-unsigned int PTR_MemoryCard;
-int PTR_Resident_Chara_Param = *(int *)(DAT_002ff11c + 0xc);
-int PTR_Progress_Chara_Param = (*(uint *)(PTR_Resident_Chara_Param + 4) & 0xfffffffc);
-int PTR_Progress_ZItem_Param = (*(uint *)(PTR_Resident_Chara_Param + 8) & 0xfffffffc);
-int Language_Setting = (*(uint *)(PTR_MemoryCard + 0x1608) & 1);
+{
+	uint uVar1;
+	int iVar2;
+	int iVar3;
+
+	// Failsafe for Animation Offset = 0
+	if (param_1 != 0) {
+		uVar1 = Get_Animation_Duel_Params(param_2); // Get 4 Animation Parameters
+		iVar3 = (int)param_1; // Stores Animation Start Offset
+							  // If Animation's Parameter 4, 7th Flag is Disabled [0X00 0000]
+		if ((uVar1 & 0x40000000) == 0) {
+			iVar2 = Get_Animation_Duel_Params(param_2); // Get 4 Animation Parameters
+														// If Value is Negative
+			if (iVar2 < 0) {
+				Anm_Substract_NULL_Bone_FData(iVar3); // Set NULL Bone Position
+				uVar1 = Get_Animation_Duel_Params(param_2); // Get 4 Animation Parameters
+															// If Animation's Parameter 1, 2nd Flag is Enabled [0000 00X0]
+				if ((uVar1 & 2) != 0) {
+					Force_NULL_Axis_Anm(iVar3, 1, 0, 0); // Force NULL Bone X Axis Data to 0
+				}
+			}
+		}
+		else {
+			// Force NULL Bone X, Y and Z Axis Data to 0
+			Force_NULL_Axis_Anm(iVar3, 1, 1, 1);
+		}
+	}
+	return;
+}
 
 // FUN_001c3cf0
 // Forces Rest Position on Certain Bones for Certain Characters
@@ -65,6 +87,126 @@ void Force_Wheelo_Anim(long param_1, int param_2)
 	return;
 }
 
+// FUN_001c45e8
+// Get Animation Flags
+// Param_1 = Animation ID
+int Get_Animation_Duel_Params(ulong param_1)
+
+{
+	int uVar1;
+
+	uVar1 = 0;
+	// If (Anm Data Offset?) not 0
+	if (DAT_002feb14 != 0) {
+		// If (Anm Data Offset? + 0x20) not 0
+		// And Animation ID less than 0x19e [Wii First Animation File]
+		if ((*(int *)(DAT_002feb14 + 0x20) != 0) && (param_1 < 0x19e)) {
+			// Stores 4 Parameters on uVar1
+			uVar1 = *(int *)((int)param_1 * 4 + *(int *)(DAT_002feb14 + 0x20));
+		}
+	}
+	return uVar1;
+}
+
+// FUN_0024c578
+// Sets a determined Axis on the NULL Bone to 0
+// param_1 = Animation Start Offset
+// param_2 = Set X Position FLAG
+// param_3 = Set Y Position FLAG
+// param_4 = Set Z Position FLAG
+void Force_NULL_Axis_Anm(int param_1, long param_2, long param_3, long param_4)
+
+{
+	uint uVar1;
+	uint uVar2;
+	ushort *puVar3;
+	int *puVar4;
+
+	// if Animation's NULL Bone Index Not 0
+	if (*(ushort *)(param_1 + 6) != 0) {
+		// Stores Pointer to Frame Data Header
+		puVar3 = (ushort *)(param_1 + (uint)*(ushort *)(param_1 + 6) * 4);
+
+		// Stores Pointer to Frame Data Start Offset
+		puVar4 = (int *)(puVar3 + 2);
+
+		// If Frame Data Type is Translation Type
+		if ((*puVar3 & 1) == 0) {
+			uVar2 = (uint)puVar3[1]; // Stores Frame Count
+			uVar1 = uVar2;
+
+			// If Set X Position Flag Enabled
+			if (param_2 != 0) {
+				// Do for each Frame
+				while (uVar1 != 0) {
+					*puVar4 = 0; // Set X Position Data to 0
+					puVar4 = puVar4 + 6; // Updates Pointer to Next X Frame Position Data
+					uVar1 = uVar1 - 1; // Updates Frame Counter
+				}
+			}
+
+			// If Set Y Position Flag Enabled AND Frame Count not 0
+			if ((param_3 != 0) && (uVar2 != 0)) {
+				// Set Pointer to First Y Position Data
+				puVar4 = (undefined4 *)(puVar3 + 4);
+				uVar1 = uVar2;
+				do {
+					uVar1 = uVar1 - 1; // Updates Frame Counter
+					*puVar4 = 0; // Set Y Position Data to 0
+					puVar4 = puVar4 + 6; // Updates Pointer to Next Y Frame Position Data
+				} while (uVar1 != 0); // Do for each Frame
+			}
+
+			// If Set Z Position Flag Enabled AND Frame Count not 0
+			if ((param_4 != 0) && (uVar2 != 0)) {
+				// Set Pointer to First Z Position Data
+				puVar4 = (undefined4 *)(puVar3 + 6);
+				do {
+					uVar2 = uVar2 - 1; // Updates Frame Counter
+					*puVar4 = 0; // Set Y Position Data to 0
+					puVar4 = puVar4 + 6; // Updates Pointer to Next Z Frame Position Data
+				} while (uVar2 != 0); // Do for each Frame
+			}
+		}
+	}
+	return;
+}
+
+// FUN_0024c650
+// NULL Bone Special Animation Setting
+// param_1 = Animation Start Offset
+void Anm_Substract_NULL_Bone_FData(int param_1)
+
+{
+	float *pfVar1;
+	uint uVar2;
+	ushort *puVar3;
+	float fVar4;
+	float fVar5;
+	float fVar6;
+
+	// If NULL Bone Index Not Equal 0
+	// puVar3 Stores Pointer to NULL Bone Animation Data Start Position
+	// AND Data is Translation type (Byte & 1) == 0
+	if ((*(ushort *)(param_1 + 6) != 0) && (puVar3 = (ushort *)(param_1 + (uint)*(ushort *)(param_1 + 6) * 4), (*puVar3 & 1) == 0)) {
+		pfVar1 = (float *)(puVar3 + 2); // Stores Pointer to First Frame Float X Position
+		uVar2 = (uint)puVar3[1]; // Stores Frame Count
+		fVar5 = *pfVar1; // Stores First Frame Float X Position
+		fVar4 = *(float *)(puVar3 + 4); // Stores First Frame Float Y Position
+		fVar6 = *(float *)(puVar3 + 6); // Stores First Frame Float Z Position
+
+										// Do for Each Animation Frame
+		while (uVar2 != 0) {
+			uVar2 = uVar2 - 1; // Update Counter
+			*pfVar1 = *pfVar1 - fVar5; // Substracts Current Frame's X Position with First Frame's X Position
+			pfVar1[1] = pfVar1[1] - fVar4; // Substracts Current Frame's Y Position with First Frame's Y Position
+			pfVar1[2] = pfVar1[2] - fVar6; // Substracts Current Frame's Z Position with First Frame's Z Position
+			pfVar1 = pfVar1 + 6; // Updates Pointer to Next Frame Data
+		}
+	}
+	return;
+}
+
 // FUN_0024c6e0
 // param_1 = Animation File Start Offset?
 // param_2 = Bone ID
@@ -73,7 +215,7 @@ void Force_Anm_Rest_Position(int param_1, int param_2)
 {
 	ushort uVar1;
 	ushort *puVar2;
-	undefined4 *puVar3;
+	int *puVar3;
 	int iVar4;
 	uint uVar5;
 
@@ -122,6 +264,76 @@ void Force_Anm_Rest_Position(int param_1, int param_2)
 	return;
 }
 
+// FUN_0024d368
+// Returns Bone ID for VFX Starting Position
+// param_1 = 4 Byte Flags
+int Get_VFX_BoneID(uint param_1)
+
+{
+	int uVar1;
+
+	uVar1 = 3;
+	if ((param_1 & 1) == 0) {
+		uVar1 = 4;
+		if ((param_1 & 2) == 0) {
+			uVar1 = 10;
+			if ((param_1 & 4) == 0) {
+				uVar1 = 0xb;
+				if ((param_1 & 8) == 0) {
+					uVar1 = 0x13;
+					if ((param_1 & 0x40) == 0) {
+						uVar1 = 0x14;
+						if ((param_1 & 0x80) == 0) {
+							uVar1 = 0x15;
+							if ((param_1 & 0x100) == 0) {
+								uVar1 = 0xe;
+								if ((param_1 & 0x10) == 0) {
+									uVar1 = 0xf;
+									if ((param_1 & 0x20) == 0) {
+										uVar1 = 0x21;
+										if ((param_1 & 0x200) == 0) {
+											uVar1 = 0x22;
+											if ((param_1 & 0x400) == 0) {
+												uVar1 = 0x23;
+												if ((param_1 & 0x800) == 0) {
+													uVar1 = 0x2e;
+													if ((param_1 & 0x1000) == 0) {
+														uVar1 = 0x40;
+														if ((param_1 & 0x2000) == 0) {
+															uVar1 = 0x41;
+															if ((param_1 & 0x4000) == 0) {
+																uVar1 = 0;
+																if ((param_1 & 0x8000) == 0) {
+																	uVar1 = 0x1f;
+																	if ((param_1 & 0x10000) == 0) {
+																		uVar1 = 0x2d;
+																		if ((param_1 & 0x20000) == 0) {
+																			uVar1 = 0x36;
+																			if ((param_1 & 0x40000) == 0) {
+																				uVar1 = 0;
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return uVar1;
+}
+
 // FUN_00259228
 // Returns Current GSC ID
 int Get_Current_GSC_ID(void)
@@ -158,7 +370,7 @@ int Get_Progress_Character_Data_PTR(ulong charaID)
 	// If Character Selected is less than Random ID [0xa1]
 	if (charaID < 0xa1) { 
 		// Stores Character Data Pointer of Progress Chara Param
-		PTR_Character_Data = PTR_Resident_Chara_Param + PTR_Progress_Chara_Param + (int)charaID * 0x3c;
+		PTR_Character_Data = PTR_Progress_Chara_Param + (int)charaID * 0x3c;
 	}
 	return PTR_Character_Data;
 }
@@ -286,7 +498,7 @@ short Get_Character_Costume_Count(int param_1, long param_2)
 	int iVar1;
 
 	// iVar1 Stores Pointer to Start of progress_chara_param.dat
-	iVar1 = PTR_Resident_Chara_Param + PTR_Progress_Chara_Param;
+	iVar1 = PTR_Progress_Chara_Param;
 
 	// if param_2 not equal zero
 	// And Character Costume Count Less or Equal to param_2
@@ -304,7 +516,7 @@ short Get_Character_Costume_Count(int param_1, long param_2)
 // param_1 Character Selected
 short Get_Character_DP_Value(int param_1)
 {
-	return *(short *) (param_1 * 0x3c + PTR_Resident_Chara_Param + PTR_Progress_Chara_Param + 0xc);
+	return *(short *) (param_1 * 0x3c + PTR_Progress_Chara_Param + 0xc);
 }
 
 // FUN_00260be0
@@ -328,7 +540,7 @@ int Get_ZItem_Slots_Count(int param_1, int param_2, long param_3)
 
 	// Gets Character's Z Item Slots Unlocked by Default from Progress Chara Param
 	// Adds Data from uVar1 to get full Z Item Slots Unlocked Currently
-	return (int)((uint)*(ushort *)(param_1 * 0x3c + PTR_Resident_Chara_Param + PTR_Progress_Chara_Param + 0xe) + (uint)uVar1);
+	return (int)((uint)*(ushort *)(param_1 * 0x3c + PTR_Progress_Chara_Param + 0xe) + (uint)uVar1);
 }
 
 // FUN_00260c50
@@ -340,7 +552,7 @@ int Get_ZItem_Zeni_Limit(int param_1, int param_2)
 {
 	// Gets Unlocked Z Item Slots of Char Selected from EvoZ Data [0x183c] on Memory Card and multiplies it by 4
 	// Gets Current Zeni Limit of Character from Progress_Chara_Param 
-	return *(int *)((uint)*(ushort *)(param_2 * 0x38 + PTR_MemoryCard + 0x183c) * 4 + param_1 * 0x3c + PTR_Resident_Chara_Param + PTR_Progress_Chara_Param + 0x10);
+	return *(int *)((uint)*(ushort *)(param_2 * 0x38 + PTR_MemoryCard + 0x183c) * 4 + param_1 * 0x3c + PTR_Progress_Chara_Param + 0x10);
 }
 
 // FUN_00260ca0
@@ -356,7 +568,7 @@ int Get_Character_ItemSlot_Price(int param_1)
 	int iVar5;
 
 	// Stores Character Data Start Pointer of Progress Chara Param
-	iVar3 = param_1 * 0x3c + PTR_Resident_Chara_Param + PTR_Progress_Chara_Param;
+	iVar3 = param_1 * 0x3c + PTR_Progress_Chara_Param;
 
 	iVar1 = *(int *)(iVar3 + 0x10); // Stores First Z Item Slot Price
 	iVar2 = 0;
@@ -397,7 +609,7 @@ bool ZItem_Can_BeEquipped(int param_1, int param_2, int param_3)
 	// And Parameter [0x04] disabled
 	if ((uVar1 & 5) == 0) {
 		// If Character Is Good (& 1 != 0)
-		if ((*(ushort *)(param_2 * 0x3c + PTR_Resident_Chara_Param + PTR_Progress_Chara_Param + 8) & 1) != 0) {
+		if ((*(ushort *)(param_2 * 0x3c + PTR_Progress_Chara_Param + 8) & 1) != 0) {
 			return (uVar1 & 8) != 0; // Check if Z Item can be Equipped to Good Hearted Characters
 		}
 		bVar2 = (uVar1 & 0x10) != 0; // Check if Z Item can be Equipped to Evil Characters
@@ -420,8 +632,8 @@ int Get_Character_Select_Restrictions(uint param_1, uint param_2)
 	// And param_1 and param_2 is not equal to Cell Jr [0x6D]
 	// And param_1 and param_2 is not equal to Metal Cooler [0x80]
 	if (((((param_1 != 0x4f) && (param_1 != 0x6d)) && (param_1 != 0x80)) && ((param_2 != 0x4f && (param_2 != 0x6d)))) && (param_2 != 0x80)) {
-		// Loads Pointer to chara_progress_param file on iVar3
-		iVar3 = PTR_Resident_Chara_Param + PTR_Progress_Chara_Param;
+		// Loads Pointer to progress_chara_param file on iVar3
+		iVar3 = PTR_Progress_Chara_Param;
 		if (param_1 != param_2) {
 			iVar1 = 0x20;
 			iVar4 = 0;
@@ -610,7 +822,7 @@ int Get_Next_ZItem_Slot_Price(long param_1, int param_2, int param_3)
 	// If Current Unlocked Z Item Slots not equal zero
 	if (uVar1 != 0) {
 		// Returns Next Not Unlocked Z Item Slot Price
-		return *(int *)((uint)uVar1 * 4 + param_2 * 0x3c + PTR_Resident_Chara_Param + PTR_Progress_Chara_Param + 0xc);
+		return *(int *)((uint)uVar1 * 4 + param_2 * 0x3c + PTR_Progress_Chara_Param + 0xc);
 	}
 	return 0;
 }
