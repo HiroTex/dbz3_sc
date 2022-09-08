@@ -1,0 +1,18 @@
+[00]
+[01] resident_battle_param.pak
+[02] resident_effect.pak
+[03] resident_chara_param.pak
+[04]
+[05]
+[06]
+[07]
+[08]
+[09] Map File
+[10] Battle.pak File
+[11]
+[12] GSC File
+[13] 
+[14] SE_Battle.pak
+[15] Map_SE
+[16] Character 1 Voice Pak File
+[17] Character 2 Voice Pak File

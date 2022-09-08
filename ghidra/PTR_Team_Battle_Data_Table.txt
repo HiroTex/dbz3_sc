@@ -1,0 +1,42 @@
+[00] Character ID
+[01] Costume ID
+[02] (Character Alive Flag Maybe?)
+[03] Ki Charge Ability Modifier
+[04] Ki Damage Ability Modifier
+[05] Defense Ability Modifier
+[06] Speed Ability Modifier
+[07] Blast 1 Ability Modifier (Blast Stock Gauge)
+[08] Blast 2 Ability Modifier (Blast Damage)
+[09] Ultimate Blast Ability Modifier (Damage)
+[10]
+[11]
+[12]
+[13]
+[14]
+[15]
+[16] - Player Battle Status Data Table - [00] Current HP
+[17] [01] Max HP
+[18] [02] 
+[19] [03] Current Ki
+[20] [04] Max Ki
+[21] [05] Current Blast Stocks
+[22] [06] Max Blast Stocks
+[23] [07] Current MAX Mode Ki
+[24] [08] Damaged Model Flag
+[25] [09] 
+[26] [10] Low Health (Tired) Flag
+[27] [11] 
+[28] [12] Body Changed Flag
+[29] [13] 
+[30] [14] First BLAST 1 Related?
+[31] [15] Second BLAST 1 Related?
+[32] [16] 
+[33] [17] 
+[34] [18] 
+[35] [19] 
+[36] [20] 
+[37] [21] First BLAST 2 Related?
+[38] [22] Second BLAST 2 Related?
+[39] [23] Ultimate Blast Related?
+[40] [24] 
+[41] [25] 

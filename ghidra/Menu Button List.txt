@@ -1,0 +1,17 @@
+Menu Button Navigation
+0x01 = Left DPad
+0x02 = Right DPad
+0x04 = Down DPad
+0x08 = Up DPad
+0x10 = Right Analog Stick Left
+0x20 = Right Analog Stick Right
+0x40 = Right Analog Stick Down
+0x80 = Right Analog Stick Up
+0x100 = Circle
+0x200 = X
+0x400 = Triangle
+0x800 = Square
+0x1000 = Start
+0x2000 = Select
+0x4000 = L1
+0x8000 = L2

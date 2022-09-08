@@ -1,0 +1,65 @@
+[000] = ?
+[001] = ?
+[002] = ?
+[003] = Character ID
+[004] = Initial HP Percentage
+[005] = Pointer to Character File Memory Address
+[006] = pmdl Header
+[007] = textures.dbt
+
+[016] = pmdl Header
+[017] = Model Data Start
+[018] = textures.dbt
+[019] = face_blink.dbt
+[020] = hud.dbt
+[021] = ?
+[022] = effect_common.pak
+[023] = face_1.mdl
+[024] = face_2.mdl
+[025] = face_3.mdl
+[026] = face_4.mdl
+[027] = face_5.mdl
+
+[035] = face_05.dbt
+[036] = face_06.dbt
+[037] = face_07.dbt
+[038] = face_08.dbt
+[039] = skill_001.pak
+[040] = skill_002.pak
+[041] = skill_003.pak
+[042] = skill_004.pak
+[043] = skill_005.pak
+[044] = camera_intro.cma
+[045] = camera_win.cma
+[046] = camera_lose.cma
+[047] = Skill List
+[048] = 000_ground
+[???] = 032_jump_in
+[461] = 413_stand_loop 
+
+[469] = stand.anm
+[470] = LPS File 1
+[569] = LPS File 99
+
+[577] = stand.anm
+[578] = ?
+[579] = ?
+[580] = ?
+[581] = ?
+[582] = Ginyu Body Change Axis Data File (Animation Modifiers)
+[583] = common_param.dat
+[584] = melee_param.dat
+[585] = kidan_param.dat
+[586] = movement_param.dat
+[587] = blast_param.dat
+[588] = skill_param.dat
+[589] = com_param.cmr
+[590] = camera_param.dat
+[591] = voice_speaker.dat
+[592] = gimmick_param.dat
+
+[656] = Player Model Flags
+
+[720] = Decompressed Animation (Current?)
+[758] = Decompressed Animation? (Next?)
+[1432] = Buffer for Decompressed Animation Files

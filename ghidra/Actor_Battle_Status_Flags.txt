@@ -1,0 +1,16 @@
+0x06 = MAX Power Mode
+0x0e = On Air
+0x11 = Underwater
+0x61 = Rush Clash
+0x62 = Aerial Clash
+0x97 = Kaioken?
+0xBC = Fatigued
+0xDC = Show First BLAST 1 Skill ID Name on Screen
+0xDD = Show Second BLAST 1 Skill ID Name on Screen
+0xE4 = Show Rotating Analog Image on Screen
+0xE5 = Show Circle Button Mash Image on Screen
+0xE6 = Show Triangle Button Mash Image on Screen
+0xE7 = Show Circle Button Press Icon on Screen
+0xE8 = Show X Button Press Icon on Screen
+0xE9 = Show Triangle Button Press Icon on Screen
+0xEA = Show Square Button Press Icon on Screen

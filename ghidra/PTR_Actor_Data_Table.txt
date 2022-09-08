@@ -1,0 +1,81 @@
+[003] Current Player Team ID?
+
+[465] Button Input Related
+[466] Button Input Related
+[467] Button Input Combination Related
+
+[594] Dynamic Battle Function ID (Current Executing?)
+[595] Dynamic Battle Function ID (Next to Execute?)
+[596] Dynamic Battle Function ID (?)
+[597] Dynamic Battle Function ID (?)
+
+[605] Current Animation ID
+[606] Next Animation ID?
+[607] Next Animation ID?
+[608] Next Animation ID?
+
+[613] Current Player Team ID?
+[614] Team Character Count
+[615] Switch Gauge?
+[616] ?
+[617] - Battle Data Table (Team ID 0) - Length [41]
+[658] - Battle Data Table (Team ID 1) - Length [41]
+[699] - Battle Data Table (Team ID 2) - Length [41]
+[740] - Battle Data Table (Team ID 3) - Length [41]
+[781] - Battle Data Table (Team ID 4) - Length [41]
+[822] Team Switch Team ID
+[823] Team Switch Character ID
+[824] Team Switch Costume ID
+[825] Team Switch Damaged Costume Flag
+[826] Team Switch Character ID?
+[827] Team Switch Character ID?
+[828] Team Switch Character ID?
+
+[858] Same Combo Counter?
+[859] Dragon Homings Count
+[860] ?
+[861] Vanishing Attacks Count
+
+[866] Z Counter Vanishings
+
+[891] Current Charge Float Value (Only for Kidan?)
+
+[899] Current BLAST 1 Skill ID?
+
+[910] First BLAST1 Effect Related
+[911] Second BLAST1 Effect Related
+[915] Blast Clash Effort Value
+[916] Rush Clash Effort Value?
+
+[932] Current BLAST2 MAGIC ID
+[933] Actor Role Executing BLAST2
+[934] Opponent Actor Role Receiving BLAST2
+[935] Current BLAST2 Skill ID
+[936] Current BLAST2 Cutscene Event Count
+[937] Current BLAST2 Enemy Fall Type
+[938] Current BLAST2 Partner Event Call
+[939] 
+[940] Current BLAST2 Partner Character ID
+[941] Current BLAST2 Partner Costume ID
+[942] Current BLAST2 Partner Costume Damage
+[943] 
+[945] Roulette Damage Flag?
+[948] Current BLAST2 Enemy Desintegration
+[950] Current BLAST2 User Costume Damage Flag
+[951] Current BLAST2 Enemy Costume Damage Flag
+[952] Current BLAST2 Character Map Position Reset Flag
+
+[1203] Transformation/Fusion Form ID?
+[1204] Transformation/Fusion Result Character ID
+[1205] Transformation/Fusion Result Costume ID
+[1206] Transformation/Fusion Blast Stock Consumption
+[1207] Transformation/Fusion Effect
+[1208] Transformation/Fusion Result Costume Damage Flag
+[1209] Transformation/Fusion Result Character ID?
+[1210] Transformation/Fusion Result Character ID?
+[1211] Transformation/Fusion Result Character ID?
+[1212] Transformation/Fusion Partner Character ID
+[1213] Transformation/Fusion Partner Costume ID
+[1214] Transformation/Fusion Partner Team ID (To Delete It?)
+[1215] Transformation/Fusion Partner Costume Damage
+[1230] Partner Team ID?
