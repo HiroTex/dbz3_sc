@@ -12,18 +12,24 @@
 [018] = textures.dbt
 [019] = face_blink.dbt
 [020] = hud.dbt
-[021] = ?
+[021] = hurtbox
 [022] = effect_common.pak
 [023] = face_1.mdl
 [024] = face_2.mdl
 [025] = face_3.mdl
 [026] = face_4.mdl
 [027] = face_5.mdl
-
-[035] = face_05.dbt
-[036] = face_06.dbt
-[037] = face_07.dbt
-[038] = face_08.dbt
+[028] = face_6.mdl
+[029] = face_7.mdl
+[030] = face_8.mdl
+[031] = face_1.dbt (Unused)
+[032] = face_2.dbt (Unused)
+[033] = face_3.dbt (Unused)
+[034] = face_4.dbt (Unused)
+[035] = face_5.dbt
+[036] = face_6.dbt
+[037] = face_7.dbt
+[038] = face_8.dbt
 [039] = skill_001.pak
 [040] = skill_002.pak
 [041] = skill_003.pak
@@ -34,18 +40,31 @@
 [046] = camera_lose.cma
 [047] = Skill List
 [048] = 000_ground
-[???] = 032_jump_in
-[461] = 413_stand_loop 
-
-[469] = stand.anm
-[470] = LPS File 1
-[569] = LPS File 99
-
-[577] = stand.anm
-[578] = ?
-[579] = ?
-[580] = ?
-[581] = ?
+-
+[461] = 413_stand_loop
+[462] = 028_support_1.anm
+[463] = 029_support_2.anm
+[464] = 030_support_3.anm
+[465] = 031_support_4.anm
+[466] = 032_fusion_demo.anm
+[467] = 033_potala_demo.anm
+[468] = 034_result_demo.anm
+[469] = 035_stand_loop.anm
+[470] = cv_000500.lps
+-
+[569] = cv_000599.lps
+[570] = 028_support_1.anm
+[571] = 029_support_2.anm
+[572] = 030_support_3.anm
+[573] = 031_support_4.anm
+[574] = 032_fusion_demo.anm
+[575] = 033_potala_demo.anm
+[576] = 034_result_demo.anm
+[577] = 035_stand_loop.anm
+[578] = 036_camera_event_1.cma
+[579] = 037_camera_event_2.cma
+[580] = 038_camera_event_3.cma
+[581] = 039_camera_event_4.cma
 [582] = Ginyu Body Change Axis Data File (Animation Modifiers)
 [583] = common_param.dat
 [584] = melee_param.dat
