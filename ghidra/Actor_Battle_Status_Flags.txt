@@ -4,6 +4,7 @@
 0x61 = Rush Clash
 0x62 = Aerial Clash
 0x97 = Kaioken?
+0xA3 = Blast Combo State
 0xBC = Fatigued
 0xDC = Show First BLAST 1 Skill ID Name on Screen
 0xDD = Show Second BLAST 1 Skill ID Name on Screen
