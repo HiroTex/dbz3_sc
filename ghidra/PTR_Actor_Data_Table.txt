@@ -47,6 +47,7 @@
 [915] Blast Clash Effort Value
 [916] Rush Clash Effort Value?
 
+[919] Goku (Med)'s Genkidama Damage Multiplier
 [920] Babidi's Ultimate Attack Damage Multiplier
 
 [932] Current BLAST2 MAGIC ID
