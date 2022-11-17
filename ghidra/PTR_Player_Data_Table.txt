@@ -2,7 +2,7 @@
 [001] = ?
 [002] = ?
 [003] = Character ID
-[004] = Initial HP Percentage
+[004] = Team ID
 [005] = Pointer to Character File Memory Address
 [006] = pmdl Header
 [007] = textures.dbt
