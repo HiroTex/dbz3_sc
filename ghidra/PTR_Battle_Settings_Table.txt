@@ -1,0 +1,15 @@
+[000] MAGIC Identifier
+[001] ?
+[002] Type ID
+[003] BGM ID
+[004] Time
+[005] Narrator ID
+[006] Map Destruction Flag
+[007] Initial Map ID
+[009] 2P Mode Flag
+[010] Current Map ID
+[047] Current GSC ID
+
+[203] Actor 0 Resource Table ID
+
+[359] Actor 1 Resource Table ID
