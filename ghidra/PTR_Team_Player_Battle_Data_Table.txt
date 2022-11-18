@@ -14,7 +14,8 @@
 [13]
 [14]
 [15]
-[16] - Player Battle Status Data Table - [00] Current HP
+- Player Battle Status Table - 
+[16] [00] Current HP
 [17] [01] Max HP
 [18] [02] 
 [19] [03] Current Ki
