@@ -17,7 +17,7 @@
 [613] Current Player Team ID?
 [614] Team Character Count
 [615] Switch Gauge?
-[616] ?
+[616] Current Switch Partner Team ID
 [617] - Battle Data Table (Team ID 0) - Length [41]
 [658] - Battle Data Table (Team ID 1) - Length [41]
 [699] - Battle Data Table (Team ID 2) - Length [41]
