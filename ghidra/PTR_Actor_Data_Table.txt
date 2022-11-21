@@ -121,6 +121,6 @@
 [1215] Transformation/Fusion Partner Costume Damage
 [1230] Partner Team ID?
 
-[1402] Skill_003 Effect Pak Reserve?
-[1403] Skill_004 Effect Pak Reserve?
-[1404] Skill_005 Effect Pak Reserve?
+[1402] Skill_003 Rush Stage Float Data
+[1403] Skill_004 Rush Stage Float Data
+[1404] Skill_005 Rush Stage Float Data
