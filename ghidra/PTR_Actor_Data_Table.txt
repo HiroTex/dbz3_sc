@@ -42,7 +42,8 @@
 
 [899] BLAST1 Current Skill ID?
 
-[901] BLAST1 Current Skill Effect Lifespan Time?
+[901] BLAST1 Current Skill Effect Lifespan Time? (if Lifespan Type is Timed)
+[902] BLAST1 Current Skill Effect Lifespan Time?
 
 [908] BLAST1 Current Blast Enhancer Lifespan Flag?
 [909] BLAST1 Current Max Power Mode Lifespan Flag?
