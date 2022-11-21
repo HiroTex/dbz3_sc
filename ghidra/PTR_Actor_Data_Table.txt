@@ -40,33 +40,42 @@
 
 [891] Current Charge Float Value (Only for Kidan?)
 
-[899] Current BLAST 1 Skill ID?
+[899] BLAST1 Current Skill ID?
 
-[910] First BLAST1 Effect Related
-[911] Second BLAST1 Effect Related
+[901] BLAST1 Current Skill Effect Lifespan Time?
+
+[908] BLAST1 Current Blast Enhancer Lifespan Flag?
+[909] BLAST1 Current Max Power Mode Lifespan Flag?
+[910] BLAST1 Skill 1 Effect Lifespan Enabled Flag?
+[911] BLAST1 Skill 2 Effect Lifespan Enabled Flag?
+
 [915] Blast Clash Effort Value
-[916] Rush Clash Effort Value?
+[916] Melee Clash Effort Value
 
 [919] Goku (Med)'s Genkidama Damage Multiplier
 [920] Babidi's Ultimate Attack Damage Multiplier
 
-[932] Current BLAST2 MAGIC ID
+[932] BLAST2 Current MAGIC ID
 [933] Actor Role Executing BLAST2
 [934] Opponent Actor Role Receiving BLAST2
-[935] Current BLAST2 Skill ID
-[936] Current BLAST2 Cutscene Event Count
-[937] Current BLAST2 Enemy Fall Type
-[938] Current BLAST2 Partner Event Call
+[935] BLAST2 Current Skill ID
+[936] BLAST2 Current Cutscene Event Count
+[937] BLAST2 Current Enemy Fall Type
+[938] BLAST2 Current Partner Event Call
 [939] 
-[940] Current BLAST2 Partner Character ID
-[941] Current BLAST2 Partner Costume ID
-[942] Current BLAST2 Partner Costume Damage
+[940] BLAST2 Current Partner Character ID
+[941] BLAST2 Current Partner Costume ID
+[942] BLAST2 Current Partner Costume Damage
 [943] 
-[945] Roulette Damage Flag?
-[948] Current BLAST2 Enemy Desintegration
-[950] Current BLAST2 User Costume Damage Flag
-[951] Current BLAST2 Enemy Costume Damage Flag
-[952] Current BLAST2 Character Map Position Reset Flag
+[944]
+[945] BLAST2 Current Roulette Damage Flag
+[946]
+[947]
+[948] BLAST2 Current Enemy Desintegration Flag
+[949]
+[950] BLAST2 Current User Costume Damage Flag
+[951] BLAST2 Current Enemy Costume Damage Flag
+[952] BLAST2 Current Character Map Position Reset Flag
 
 - - - -
 [980] - BLAST1 Skill Ability Modifiers - Length [6]
