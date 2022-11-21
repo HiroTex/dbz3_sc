@@ -120,3 +120,7 @@
 [1214] Transformation/Fusion Partner Team ID (To Delete It?)
 [1215] Transformation/Fusion Partner Costume Damage
 [1230] Partner Team ID?
+
+[1402] Skill_003 Effect Pak Reserve?
+[1403] Skill_004 Effect Pak Reserve?
+[1404] Skill_005 Effect Pak Reserve?
