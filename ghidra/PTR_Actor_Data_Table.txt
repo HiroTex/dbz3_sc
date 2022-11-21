@@ -68,6 +68,34 @@
 [951] Current BLAST2 Enemy Costume Damage Flag
 [952] Current BLAST2 Character Map Position Reset Flag
 
+- - - -
+[980] - BLAST1 Skill Ability Modifiers - Length [6]
+
+[0980] [00] Skill 1 (Lifespan Type 0)
+[0980] [01] Skill 2 (Lifespan Type 0)
+[0980] [02] Skill 1 (Lifespan Type 1)
+[0980] [03] Skill 2 (Lifespan Type 1)
+
+[0981] [00] Skill 1 (Lifespan Type 2)
+[0981] [01] Skill 2 (Lifespan Type 2)
+[0981] [02] Skill 1 (Lifespan Type 3)
+[0981] [03] Skill 2 (Lifespan Type 3)
+
+[0982] [00] Skill 1 (Lifespan Type 4)
+[0982] [01] Skill 2 (Lifespan Type 4)
+[0982] [02] Skill 1 (Special Modifier Cannot be used on Max Power Mode?)
+[0982] [03] Skill 2 (Special Modifier Cannot be used on Max Power Mode?)
+
+[0983] Special Skill Attack Ability Modifier
+[0984] Skill 1 (Lifespan Type 1) Attack Ability Modifier LifeSpan
+[0985] Skill 2 (Lifespan Type 1) Attack Ability Modifier LifeSpan
+
+[0986] - BLAST1 Skill Defense Ability Modifiers -
+[0992] - BLAST1 Skill Ki Ability Modifiers -
+[0998] - BLAST1 Skill Super Ability Modifiers -
+- - - -
+[1004] ?
+
 [1203] Transformation/Fusion Form ID?
 [1204] Transformation/Fusion Result Character ID
 [1205] Transformation/Fusion Result Costume ID
