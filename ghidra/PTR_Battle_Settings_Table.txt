@@ -9,7 +9,24 @@
 [009] 2P Mode Flag
 [010] Current Map ID
 [047] Current GSC ID
+[048]
 
+- Actor 0 Team Member Battle Settings - Length [156]
+[049] - Team Member 1 Battle Settings - Length [25]
+[074] - Team Member 2 Battle Settings - Length [25]
+[099] - Team Member 3 Battle Settings - Length [25]
+[124] - Team Member 4 Battle Settings - Length [25]
+[149] - Team Member 5 Battle Settings - Length [25]
+-
+[174] - ?
 [203] Actor 0 Resource Table ID
 
+- Actor 1 Team Member Battle Settings - Length [156]
+[205] - Team Member 1 Battle Settings - Length [25]
+[230] - Team Member 2 Battle Settings - Length [25]
+[255] - Team Member 3 Battle Settings - Length [25]
+[280] - Team Member 4 Battle Settings - Length [25]
+[305] - Team Member 5 Battle Settings - Length [25]
+-
+[330] ?
 [359] Actor 1 Resource Table ID
