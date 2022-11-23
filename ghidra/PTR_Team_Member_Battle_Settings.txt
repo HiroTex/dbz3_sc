@@ -26,4 +26,4 @@
 [21] Z Item FlagSet 4
 [22] ?
 [23] ?
-[24] ?
+[24] Character TAG Image DBT File
