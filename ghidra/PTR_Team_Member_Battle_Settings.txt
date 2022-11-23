@@ -24,6 +24,6 @@
 [19] Z Item FlagSet 2
 [20] Z Item FlagSet 3
 [21] Z Item FlagSet 4
-[22] ?
+[22] Character TAG Image DBT Buffer
 [23] ?
 [24] Character TAG Image DBT File
