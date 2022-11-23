@@ -1,0 +1,29 @@
+[00] Character ID
+[01] Character Costume ID
+[02] Character Costume Damage Flag
+[03] IA Value
+[04] HP Percentage
+[05] [ushort] [00] Z Item ID 1
+[05] [ushort] [01] Z Item ID 2
+[06] [ushort] [00] Z Item ID 3
+[06] [ushort] [01] Z Item ID 4
+[07] [ushort] [00] Z Item ID 5
+[07] [ushort] [01] Z Item ID 6
+[08] [ushort] [00] Z Item ID 7
+[08] [ushort] [01] Z Item ID 8
+[09] ?
+[10] Z Item Ki Charge Ability Modifier
+[11] Z Item Ki Damage Ability Modifier
+[12] Z Item Defense Ability Modifier
+[13] Z Item Speed Ability Modifier
+[14] Z Item Blast 1 Ability Modifier (Blast Stock Gauge)
+[15] Z Item Blast 2 Ability Modifier (Blast Damage)
+[16] Z Item Ultimate Blast Ability Modifier (Damage)
+[17] Z Item IA Behavior Modifier
+[18] Z Item FlagSet 1
+[19] Z Item FlagSet 2
+[20] Z Item FlagSet 3
+[21] Z Item FlagSet 4
+[22] ?
+[23] ?
+[24] ?
