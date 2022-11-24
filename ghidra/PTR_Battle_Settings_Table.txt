@@ -9,19 +9,27 @@
 [009] 2P Mode Flag
 [010] Current Map ID
 [047] Current GSC ID
-[048]
 
 - Actor 0 Team Member Battle Settings - Length [156]
+[048] Actor 0 Total Team Member Count
 [049] - Team Member 1 Battle Settings - Length [25]
 [074] - Team Member 2 Battle Settings - Length [25]
 [099] - Team Member 3 Battle Settings - Length [25]
 [124] - Team Member 4 Battle Settings - Length [25]
 [149] - Team Member 5 Battle Settings - Length [25]
 -
-[174] - ?
-[203] Actor 0 Resource Table ID
+[174] ?
+[196] Actor 0 Current Character ID
+[197] Actor 0 Current Character Costume ID
+[198] Actor 0 Current Character Damaged Flag
+[199] Actor 0 Initial Character ID
+[200] Actor 0 Initial Character Costume ID
+[201] Actor 0 Initial Character Damaged Flag
+[202] Actor 0 Current Team Member ID
+[203] Actor 0 Current Resource Table ID
 
 - Actor 1 Team Member Battle Settings - Length [156]
+[204] Actor 1 Total Team Member Count
 [205] - Team Member 1 Battle Settings - Length [25]
 [230] - Team Member 2 Battle Settings - Length [25]
 [255] - Team Member 3 Battle Settings - Length [25]
@@ -29,4 +37,11 @@
 [305] - Team Member 5 Battle Settings - Length [25]
 -
 [330] ?
+[352] Actor 0 Current Character ID
+[353] Actor 0 Current Character Costume ID
+[354] Actor 0 Current Character Damaged Flag
+[355] Actor 0 Initial Character ID
+[356] Actor 0 Initial Character Costume ID
+[357] Actor 0 Initial Character Damaged Flag
+[358] Actor 0 Current Team Member ID
 [359] Actor 1 Resource Table ID
