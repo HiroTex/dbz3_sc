@@ -1,7 +1,7 @@
 [00] Character ID
 [01] Character Costume ID
 [02] Character Costume Damage Flag
-[03] IA Value
+[03] AI Value
 [04] HP Percentage
 [05] [ushort] [00] Z Item ID 1
 [05] [ushort] [01] Z Item ID 2
@@ -19,7 +19,7 @@
 [14] Z Item Blast 1 Ability Modifier (Blast Stock Gauge)
 [15] Z Item Blast 2 Ability Modifier (Blast Damage)
 [16] Z Item Ultimate Blast Ability Modifier (Damage)
-[17] Z Item IA Behavior Modifier
+[17] Z Item AI Behavior Modifier
 [18] Z Item FlagSet 1
 [19] Z Item FlagSet 2
 [20] Z Item FlagSet 3
