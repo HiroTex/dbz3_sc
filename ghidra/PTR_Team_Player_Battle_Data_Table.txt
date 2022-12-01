@@ -12,8 +12,8 @@
 [11]
 [12]
 [13]
-[14]
-[15]
+[14] AI Value
+[15] AI Behaviour Type
 - Player Battle Status Table - 
 [16] [00] Current HP
 [17] [01] Max HP
