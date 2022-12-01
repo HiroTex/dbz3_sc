@@ -19,6 +19,12 @@
 [149] - Team Member 5 Battle Settings - Length [25]
 -
 [174] ?
+[175] ?
+[176] ?
+[177] ?
+[178] Controller (00 - Human P1, 01 - Human P2, 02 - CPU)
+[179] ?
+[180] ?
 [196] Actor 0 Current Character ID
 [197] Actor 0 Current Character Costume ID
 [198] Actor 0 Current Character Damaged Flag
@@ -37,6 +43,12 @@
 [305] - Team Member 5 Battle Settings - Length [25]
 -
 [330] ?
+[331] ?
+[332] ?
+[333] ?
+[334] Controller (00 - Human P1, 01 - Human P2, 02 - CPU)
+[335] ?
+[336] ?
 [352] Actor 0 Current Character ID
 [353] Actor 0 Current Character Costume ID
 [354] Actor 0 Current Character Damaged Flag
