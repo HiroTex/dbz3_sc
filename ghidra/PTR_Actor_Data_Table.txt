@@ -1,3 +1,5 @@
+[000] Actor Role
+[001] Player Side (Controller)
 [003] Current Player Team ID?
 
 [465] Button Input Related
