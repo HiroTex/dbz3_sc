@@ -21,7 +21,7 @@
 [174] ?
 [175] ?
 [176] ?
-[177] ?
+[177] Player Side (00 - Joystick P1, 01 - Joystick P2)
 [178] Controller (00 - Human, 02 - CPU)
 [179] ?
 [180] ?
@@ -45,7 +45,7 @@
 [330] ?
 [331] ?
 [332] ?
-[333] ?
+[333] Player Side (00 - Joystick P1, 01 - Joystick P2)
 [334] Controller (00 - Human, 02 - CPU)
 [335] ?
 [336] ?
