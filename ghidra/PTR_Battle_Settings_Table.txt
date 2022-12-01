@@ -6,6 +6,7 @@
 [005] Narrator ID
 [006] Map Destruction Flag
 [007] Initial Map ID
+[008] ?
 [009] 2P Mode Flag
 [010] Current Map ID
 [047] Current GSC ID
@@ -18,7 +19,7 @@
 [124] - Team Member 4 Battle Settings - Length [25]
 [149] - Team Member 5 Battle Settings - Length [25]
 -
-[174] ?
+[174] Current Team Member ID
 [175] ?
 [176] ?
 [177] Player Side (00 - Joystick P1, 01 - Joystick P2)
