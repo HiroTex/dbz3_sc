@@ -107,6 +107,8 @@
 [0998] - BLAST1 Skill Super Ability Modifiers -
 - - - -
 [1004] ?
+- - - -
+[1182] CPU Controlled Actor Flag
 
 [1203] Transformation/Fusion Form ID?
 [1204] Transformation/Fusion Result Character ID
