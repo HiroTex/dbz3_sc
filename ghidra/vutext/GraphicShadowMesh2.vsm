@@ -1,0 +1,108 @@
+				nop								lq			vf01,0(vi00)						; load bone rot/trans/pers matrix
+				nop								lq			vf02,1(vi00)
+				nop								lq			vf03,2(vi00)
+				nop								lq			vf04,3(vi00)
+				nop								lq			vf05,4(vi00)						; load parent bone rot/trans/pers matrix
+				nop								lq			vf06,5(vi00)
+				nop								lq			vf07,6(vi00)
+				nop								lq			vf08,7(vi00)
+				nop								lq			vf09,10(vi10)						; load color
+				nop								iaddiu		vi11,vi00,0x7fff					; set mask
+				nop								iaddi		vi13,vi11,1							; set xyz3 flag
+				ftoi0		vf09,vf09			lq			vf30,8(vi00)						; load bone position
+				nop								lq			vf31,9(vi00)						; load parent bone position
+				nop								nop
+				nop[E]							nop
+				nop								nop
+				START:
+				nop								xtop		vi03
+				nop								lqi			vf26,(vi03++)						; load gif tag
+				nop								lqi			vf27,(vi03++)						; load tex0 reg
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								iaddiu		vi03,vi03,2							; skip shader tex0 and prim gif tag
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								ilwr.x		vi10(vi03)
+				nop								lqui		vf25,(vi03++)						; load prim gif tag
+				nop								lq			vf19,0(vi03)						; load vertex
+				nop								iaddiu		vi11,vi00,0x7fff					; set mask
+				nop								iand		vi10,vi10,vi11						; mask.counter for vertices
+				nop								iaddiu		vi02,vi03,252						; set pointer for xgkick
+				sub			vf28,vf19,vf30		sq			vf26,0(vi02)						; store gif tag
+				sub			vf29,vf19,vf31		sq			vf27,1(vi02)						; store tex0 reg
+				nop								sq			vf25,2(vi02)						; store prim gif tag
+				nop								iaddiu		vi07,vi02,3							; set pointer for vertices
+; --- rotation/translation/perspective transform ---
+				mulax		ACC,vf01,vf28x		lq			vf05,4(vi00)						; rot/trans/pers
+				madday		ACC,vf02,vf28y		lq			vf06,5(vi00)
+				maddaz		ACC,vf03,vf28z		lq			vf07,6(vi00)
+				maddw		vf28,vf04,vf00w		lq			vf08,7(vi00)
+				LOOP:
+; --- rotation/translation/perspective transform ---
+				mulax		ACC,vf05,vf29x		lq			vf21,1(vi03)						; rot/trans/pers
+				madday		ACC,vf06,vf29y		nop
+				maddaz		ACC,vf07,vf29z		nop
+				maddw		vf29,vf08,vf00w		nop
+				nop								nop
+				nop								nop
+				nop								nop
+				sub			vf20,vf28,vf29		nop												; set vertex position
+				nop								nop
+				nop								lq			vf01,11(vi00)						; load screen rot/trans/pers matrix
+				nop								lq			vf02,12(vi00)
+				mulw		vf20,vf20,vf19w		lq			vf03,13(vi00)						; apply vertex weight
+				nop								lq			vf04,14(vi00)
+				nop								lq			vf05,15(vi00)						; load volume clipping matrix
+				nop								lq			vf06,16(vi00)
+				add			vf20,vf29,vf20		lq			vf07,17(vi00)						; set global vertex pos
+				nop								lq			vf08,18(vi00)
+				nop								nop
+				nop								nop
+; --- rotation/translation/perspective transform ---
+				mulax		ACC,vf01,vf20x		nop
+				madday		ACC,vf02,vf20y		nop
+				maddaz		ACC,vf03,vf20z		nop
+				maddw		vf24,vf04,vf00w		nop
+				nop								nop
+;---- view volume clipping -----
+				mulax		ACC,vf05,vf20x		nop
+				madday		ACC,vf06,vf20y		nop
+				maddaz		ACC,vf07,vf20z		div			Q,vf00w,vf24w
+				maddw		vf25,vf08,vf00w		lq			vf22,2(vi03)						; load st
+				nop								nop
+				nop								nop
+				nop								nop
+				clipw.xyz	vf25.vf25w			nop
+				nop								nop
+; --- calc transformed position ---
+				mulq		vf24,vf24,Q			lq			vf01,0(vi00)
+				mulq.xyz	vf22,vf22,Q			lq			vf02,1(vi00)
+				nop								lq			vf03,2(vi00)
+				nop								lq			vf04,3(vi00)
+				nop								fcand		vi01,0x3ffff
+				nop								sq			vf22,0(vi07)						; store st
+				nop								iaddiu		vi03,vi03,3
+				ftoi4		vf29,vf24			lq			vf19,0(vi03)
+				nop								lq			vf05,4(vi00)
+				nop								lq			vf06,5(vi00)
+				nop								lq			vf07,6(vi00)
+				sub			vf28,vf19,vf30		sq			vf29,2(vi07)						; store vertex
+				sub			vf29,vf19,vf31		lq			vf08,7(vi00)
+				nop								nop
+				nop								nop
+				mulax		ACC,vf01,vf28x		iaddi		vi10,vi10,-1
+				madday		ACC,vf02,vf28y		iaddiu		vi07,vi07,3
+				maddaz		ACC,vf03,vf28z		sq			vf09,-2(vi07)						; store color
+				maddw		vf28,vf04,vf00w		ibeq		vi01,vi00,LOOPCOND
+				nop								nop
+				LOOPCOND:
+				nop								ibne		vi10,vi00,LOOP
+				nop								nop
+				nop								xgkick		vi02
+				nop[E]							nop
+				nop								nop
+				nop								b			START
+				nop								nop

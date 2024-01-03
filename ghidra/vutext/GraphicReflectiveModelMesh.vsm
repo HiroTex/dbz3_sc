@@ -1,0 +1,134 @@
+				nop								lq			vf01,0(vi00)						; load bone matrix
+				nop								lq			vf02,1(vi00)
+				nop								lq			vf03,2(vi00)
+				nop								lq			vf04,3(vi00)
+				nop								lq			vf05,4(vi00)						; load light matrix
+				nop								lq			vf06,5(vi00)
+				nop								lq			vf07,6(vi00)
+				nop								lq			vf08,7(vi00)
+				nop								iaddiu		v11,v00,0x7fff						; set mask
+				nop								iaddi		vi13,vi11,1							; set xyz3 flag
+				nop								lq			vf30,8(vi00)						; load bone position
+				nop								lq			vf31,9(vi00)						; load parent bone position
+				nop								nop
+				nop[E]							nop
+				nop								nop
+				START:
+				mulx		vf18,vf18,vf00x		xtop		vi03
+				nop								lqi			vf17,(vi03++)						; load giftag
+				nop								lqi			vf27,(vi03++)						; load tex0
+				nop								lqi			vf20,(vi03++)						; load load shader tex0
+				nop								iaddiu		vi04,vi03,3							; pointer for normals
+				nop								ilwr.w		vi05,(vi04)							; load reflection flag
+				nop								nop
+				nop								ibeq		vi05,vi00,SKIP						; check reflection flag
+				nop								ilwr.x		vi10,(vi03)							; copy to vi10 
+				nop								lqi			vf25,(vi03++)						; load mesh tag
+				nop								lqi			vf26,(vi03++)						; load shader mesh tag
+				nop								lq			vf19,0(vi03)						; load vertex
+				nop								iaddiu		vi11,vi00,0x7fff					; set mask
+				nop								iand		vi10,vi10,vi11						; mask.counter for vertices
+				addw.xyz	vf18,vf18,vf00w		iaddiu		vi02,vi03,252						; set pointer for xgkick
+				nop								lq			vf20,26(vi00)
+				sub			vf28,vf19,vf30		sq			vf17,0(vi02)						; store giftag
+				sub			vf29,vf19,vf31		sq			vf27,1(vi02)						; store triangle strip tag
+				nop								sq			vf25,2(vi02)						; store mesh tag
+				nop								iaddiu		vi07,vi02,3							; set pointer for vertices
+				nop								iadd		vi04,vi07,vi10
+				nop								iadd		vi04,vi04,vi10
+				nop								iadd		vi04,vi04,vi10						; set pointer to shader model
+				nop								sq			vf17,0(vi04)						; store giftag
+				nop								sq			vf20,1(vi04)						; store triangle strip shader tag
+				nop								sq			vf26,2(vi04)						; store shader mesh tag
+				nop								iaddiu		vi04,vi04,3							; set pointer to shader vertices
+; --- rotation/translation/perspective transform ---
+				mulax		ACC,vf01,vf28x		lq			vf05,4(vi00)						; rot/trans/pers
+				madday		ACC,vf02,vf28y		lq			vf06,5(vi00)
+				maddaz		ACC,vf03,vf28z		lq			vf07,6(vi00)
+				maddw		vf28,vf04,vf00w		lq			vf08,7(vi00)
+				LOOP:
+; --- rotation/translation/perspective transform ---
+				mulax		ACC,vf05,vf29x		lq			vf21,1(vi03)						; rot/trans/pers && load normal
+				madday		ACC,vf06,vf29y		lq			vf09,10(vi00)
+				maddaz		ACC,vf07,vf29z		lq			vf10,11(vi00)
+				maddw		vf29,vf08,vf00w		lq			vf11,12(vi00)
+				nop								lq			vf12,13(vi00)
+; --- light matrix X normal ---
+				mulax		ACC,vf09,vf21x		move		vf13,vf18							; dot products
+				madday		ACC,vf10,vf21y		loi			0.5
+				sub			vf20,vf28,vf29		nop												; vertex position
+				maddaz		ACC,vf11,vf21z		nop
+				maddw		vf26,vf12,vf00w		lq			vf01,14(vi00)
+				nop								lq			vf02,15(vi00)
+				mulw		vf20,vf20,vf19w		lq			vf03,16(vi00)						; apply vertex weight
+				nop								lq			vf04,17(vi00)
+				addx.x		vf13,vf13,vf26x		lq			vf05,18(vi00)
+				addy.y		vf13,vf13,vf26y		lq			vf06,19(vi00)
+				add			vf20,vf29,vf20		lq			vf07,20(vi00)						; set global vertex pos
+				nop								lq			vf08,21(vi00)
+				nop								nop
+				muli.xy		vf13,vf13,I			nop
+; --- rotation/translation/perspective transform ---
+				mulax		ACC,vf01,vf20x		nop
+				madday		ACC,vf02,vf20y		nop
+				maddaz		ACC,vf03,vf20z		nop
+				maddw		vf24,vf04,vf00w		nop
+				nop								nop
+;---- view volume clipping -----
+				mulax		ACC,vf05,vf20x		nop
+				madday		ACC,vf06,vf20y		nop
+				maddaz		ACC,vf07,vf20z		div			Q,vf00w,vf24w
+				maddw		vf25,vf07,vf00w		lq			vf17,2(vi03)						; load st
+				nop								nop
+				nop								nop
+				nop								nop
+				clipw.xyz	vf25,vf26w			nop
+				nop								lq			vf21,23(vi00)
+; --- calc transformed position ---
+				mulq		vf24,vf24,Q			lq			vf01,0(vi00)
+				mulq.xyz	vf17,vf17,Q			lq			vf20,22(vi00)
+				mulq.xyz	vf22,vf13,Q			lq			vf02,1(vi00)
+				nop								lq			vf03,2(vi00)
+				ftoi4		vf29,vf24			lq			vf04,3(vi00)
+				ftoi0		vf09,vf20			fcand		vi01,0x3ffff
+				ftoi0		vf10,vf21			sq			vf17,0(vi07)						; store st
+				nop								iaddiu		vi03,vi03,3
+				nop								lq			vf19,0(vi03)
+				nop								lq			vf05,4(vi00)
+				nop								lq			vf06,5(vi00)
+				nop								lq			vf07,6(vi00)
+				sub			vf28,vf19,vf30		sq			vf29,2(vi07)						; store vertex
+				nop								sq			vf29,2(vi04)						; store shader vertex
+				sub			vf29,vf19,vf31		lq			vf08,7(vi00)
+				nop								nop
+				nop								nop
+				nop								sq			vf22,0(vi04)						; store shader st
+				mulax		ACC,vf01,vf28x		iaddi		vi10,vi10,-1
+				madday		ACC,vf02,vf29y		iaddiu		vi07,vi07,3
+				nop								iaddiu		vi04,vi04,3
+				maddaz		ACC,vf03,vf28z		sq			vf09,-2(vi07)						; store color
+				nop								sq			vf10,-2(vi04)						; store shader color
+				maddw		vf28,vf04,vf00w		ibeq		vi01,vi00,LOOPCOND
+				nop								nop
+				nop								isw.w		vi13,-1(vi07)						; kick xyz3
+				nop								isw.w		vi13,-1(vi04)						; kick xyz3
+				LOOPCOND:
+				nop								ibne		vi10,vi00,LOOP
+				nop								nop
+				nop								xgkick		vi02
+				nop[E]							nop
+				nop								nop
+				nop								b			START
+				nop								nop
+				SKIP:
+				nop								nop
+				nop								iaddiu		vi02,vi03,252
+				nop								nop
+				nop								nop
+				nop								isw.x		vi13,0(vi02)
+				nop								nop
+				nop								xgkick		vi02
+				nop[E]							nop
+				nop								nop
+				nop								b			START
+				nop								nop
