@@ -29,9 +29,9 @@
 				nop								iaddiu		vi11,vi00,0x7fff					; set mask
 				nop								iand		vi10,vi10,vi11						; mask.counter for vertices
 				addw.xyz	vf18,vf18,vf00w		iaddiu		vi02,vi03,252						; set pointer for xgkick
-				nop								lq			vf20,26(vi00)
+				nop								lq			vf20,26(vi00)						; load reflection tex0
 				sub			vf28,vf19,vf30		sq			vf17,0(vi02)						; store giftag
-				sub			vf29,vf19,vf31		sq			vf27,1(vi02)						; store triangle strip tag
+				sub			vf29,vf19,vf31		sq			vf27,1(vi02)						; store reflection tex0
 				nop								sq			vf25,2(vi02)						; store mesh tag
 				nop								iaddiu		vi07,vi02,3							; set pointer for vertices
 				nop								iadd		vi04,vi07,vi10
