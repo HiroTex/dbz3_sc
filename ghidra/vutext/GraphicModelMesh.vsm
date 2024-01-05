@@ -1,45 +1,45 @@
-				nop								lq			vf01,0(vi00)
-				nop								lq			vf09,10(vi00)
+				nop								lq			vf01,0(vi00)						; load bone matrix
+				nop								lq			vf09,10(vi00)						; load light matrix
 				nop								lq			vf10,11(vi00)
 				nop								lq			vf11,12(vi00)
 				nop								lq			vf12,13(vi00)
 				mulax		ACC,vf09,vf01x		lq			vf02,1(vi00)
 				madday		ACC,vf10,vf01y		lq			vf03,2(vi00)
 				maddaz		ACC,vf11,vf01z		lq			vf04,3(vi00)
-				maddw		vf13,vf12,vf01w		lq			vf05,4(vi00)
+				maddw		vf13,vf12,vf01w		lq			vf05,4(vi00)						; load parent bone matrix
 				mulax		ACC,vf09,vf02x		lq			vf06,5(vi00)
 				madday		ACC,vf10,vf02y		lq			vf07,6(vi00)
 				maddaz		ACC,vf11,vf02z		lq			vf08,7(vi00)
-				maddw		vf14,vf12,vf02w		sq			vf13,26(vi00)
-				mulax		ACC,vf09,vf03x		lq			vf20,22(vi00)
-				madday		ACC,vf10,vf03y		lq			vf21,23(vi00)
-				maddaz		ACC,vf11,vf03z		nop						
-				maddw		vf15,vf12,vf03w		move		vf16,vf12	
+				maddw		vf14,vf12,vf02w		sq			vf13,26(vi00)						; store bone light matrix
+				mulax		ACC,vf09,vf03x		lq			vf20,22(vi00)						; load color
+				madday		ACC,vf10,vf03y		lq			vf21,23(vi00)						; load shader color
+				maddaz		ACC,vf11,vf03z		nop
+				maddw		vf15,vf12,vf03w		move		vf16,vf12
 				mulax		ACC,vf09,vf05x		sq			vf14,27(vi00)
-				madday		ACC,vf10,vf05y		nop						
-				maddaz		ACC,vf11,vf05z		nop						
+				madday		ACC,vf10,vf05y		nop
+				maddaz		ACC,vf11,vf05z		nop
 				maddw		vf13,vf12,vf05w		sq			vf15,28(vi00)
 				mulax		ACC,vf09,vf06x		sq			vf16,29(vi00)
-				madday		ACC,vf10,vf06y		nop						
-				maddaz		ACC,vf11,vf06z		nop						
-				maddw		vf14,vf12,vf06w		sq			vf13,30(vi00)
+				madday		ACC,vf10,vf06y		nop
+				maddaz		ACC,vf11,vf06z		nop
+				maddw		vf14,vf12,vf06w		sq			vf13,30(vi00)						; store parent bone light matrix
 				mulax		ACC,vf09,vf07x		iaddiu		vi11,vi00,0x7fff					; set mask
 				madday		ACC,vf10,vf07y		iaddi		vi13,vi11,1							; set xyz3 flag to vi13
-				maddaz		ACC,vf11,vf07z		nop						
+				maddaz		ACC,vf11,vf07z		nop
 				maddw		vf15,vf12,vf07w		sq			vf16,33(vi00)
 				ftoi0		vf23,vf20			sq			vf14,31(vi00)
-				ftoi0		vf18,vf21			lq			vf30,8(vi00)
-				nop								lq			vf31,9(vi00)
+				ftoi0		vf18,vf21			lq			vf30,8(vi00)						; load bone position
+				nop								lq			vf31,9(vi00)						; load parent bone position
 				nop								sq			vf15,32(vi00)
-				nop								nop						
-				nop[E]							nop						
-				nop								nop						
+				nop								nop
+				nop[E]							nop
+				nop								nop
 				START:
 				nop								xtop		vi03
 				nop								lqi			vf17,(vi03++)						; load gif tag
-				nop								lqi			vf27,(vi03++)						; load triangle strip tag 1
-				nop								lqi			vf20,(vi03++)						; load triangle strip tag 2
-				nop								ilwr.x		vi10(vi03)							; copy to vi10
+				nop								lqi			vf27,(vi03++)						; load tex0
+				nop								lqi			vf20,(vi03++)						; load shader tex0
+				nop								ilwr.x		vi10,(vi03)							; copy to vi10
 				nop								lqi			vf25,(vi03++)						; load mesh gif tag 1
 				nop								lqi			vf26,(vi03++)						; load mesh gif tag 2
 				nop								lq			vf19,0(vi03)						; load vertex
@@ -83,24 +83,24 @@
 				maddw		vf27,vf16,vf00		lq			vf06,19(vi00)
 				add			vf20,vf29,vf20		lq			vf07,20(vi00)						; set global vertex pos
 				nop								lq			vf08,21(vi00)
-				nop								nop						
+				nop								nop
 				sub			vf26,vf26,vf27		nop												; normal data
 ; --- rotation/translation/perspective transform ---
-				mulax		ACC,vf01,vf20x		nop	
-				madday		ACC,vf02,vf20y		nop	
-				maddaz		ACC,vf03,vf20z		nop	
-				maddw		vf24,vf04,vf00w		nop	
+				mulax		ACC,vf01,vf20x		nop
+				madday		ACC,vf02,vf20y		nop
+				maddaz		ACC,vf03,vf20z		nop
+				maddw		vf24,vf04,vf00w		nop
 				mulw		vf26,vf26,vf19w		nop												; apply weight to normal
 ;---- view volume clipping -----
-				mulax		ACC,vf05,vf20x		nop						
-				madday		ACC,vf06,vf20y		loi			0.5			
+				mulax		ACC,vf05,vf20x		nop
+				madday		ACC,vf06,vf20y		loi			0.5
 				maddaz		ACC,vf07,vf20z		div			Q,vf00w,vf24w
 				maddw		vf25,vf08,vf00w		lq			vf17,2(vi03)						; load st
 				add			vf26,vf27,vf26		nop												; set global normal
-				nop								nop	
-				nop								nop	
-				clipw.xyz	vf25,vf25w			nop	
-				muli.xyz	vf26,vf26,I			nop	
+				nop								nop
+				nop								nop
+				clipw.xyz	vf25,vf25w			nop
+				muli.xyz	vf26,vf26,I			nop
 ; --- calc transformed position ---
 				mulq		vf24,vf24,Q			lq			vf01,0(vi00)
 				mulq.xyz	vf17,vf17,Q			lq			vf20,22(vi00)
@@ -109,7 +109,7 @@
 				ftoi4		vf29,vf24			lq			vf04,3(vi00)
 				ftoi0		vf23,vf20			fcand		vi01,0x3ffff
 				nop								sq			vf17,0(vi07)						; store st
-				add.x		vf22,vf00,vf26		iaddiu		vi03,vi03,3	
+				add.x		vf22,vf00,vf26		iaddiu		vi03,vi03,3
 				add.y		vf22,vf00,vf00		lq			vf19,0(vi03)
 				addw.z		vf22,vf00,vf00w		lq			vf05,4(vi00)
 				nop								lq			vf06,5(vi00)
@@ -119,19 +119,19 @@
 				sub			vf29,vf19,vf31		lq			vf08,7(vi00)
 				nop								sq			vf18,1(vi04)						; store shader color
 				mulax		ACC,vf01,vf28x		iaddi		vi10,vi10,-1
-				madday		ACC,vf02,vf28y		iaddiu		vi07,vi07,3	
-				nop								iaddiu		vi04,vi04,3	
+				madday		ACC,vf02,vf28y		iaddiu		vi07,vi07,3
+				nop								iaddiu		vi04,vi04,3
 				maddaz		ACC,vf03,vf28z		sq			vf23,-2(vi07)						; store color
 				nop								sq			vf22,-3(vi04)						; store shader st
-				maddw		vf28,vf04,vf00w		ibeq		vi01,vi00,LOOPCOND	
-				nop								nop								
+				maddw		vf28,vf04,vf00w		ibeq		vi01,vi00,LOOPCOND
+				nop								nop
 				nop								isw.w		vi13,-1(vi07)						; kick xyz3
 				nop								isw.w		vi13,-1(vi04)						; kick xyz3
 				LOOPCOND:
 				nop								ibne		vi10,vi00,LOOP
-				nop								nop						
-				nop								xgkick		vi02		
-				nop[E]							nop						
-				nop								nop						
-				nop								b			START		
-				nop								nop						
+				nop								nop
+				nop								xgkick		vi02
+				nop[E]							nop
+				nop								nop
+				nop								b			START
+				nop								nop

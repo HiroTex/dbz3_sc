@@ -25,7 +25,7 @@
 				nop								nop					
 				nop								nop					
 				nop								nop					
-				nop								ilwr.x		vi10(vi03)
+				nop								ilwr.x		vi10,(vi03)
 				nop								lqui		vf25,(vi03++)						; load prim gif tag
 				nop								lq			vf19,0(vi03)						; load vertex
 				nop								iaddiu		vi11,vi00,0x7fff					; set mask
