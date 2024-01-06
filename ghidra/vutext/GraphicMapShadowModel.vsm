@@ -1,0 +1,546 @@
+				nop								lq			vf01,0(vi00)
+				nop								lq			vf02,1(vi00)
+				nop								lq			vf03,2(vi00)
+				nop								lq			vf04,3(vi00)
+				nop								lq			vf05,4(vi00)
+				nop								lq			vf06,5(vi00)
+				nop								lq			vf07,6(vi00)
+				nop								lq			vf08,7(vi00)
+				nop								lq			vf13,12(vi00)
+				nop								lq			vf14,13(vi00)
+				nop								lq			vf15,14(vi00)
+				nop								lq			vf16,15(vi00)
+				nop								iaddiu		vi14,vi00,1024
+				nop[E]							nop
+				nop								nop
+				nop								xtop		vi01
+				mulx		vf31,vf31,vf00x		lq			vf30,0(vi01)
+				nop								sq			vf30,30(vi01)
+				nop								nop
+				nop[E]							nop
+				nop								nop
+				START:
+				nop								xtop		vi01
+				nop								lq			vf17,0(vi01)						; load giftag
+				nop								lq			vf18,1(vi01)						; load nop register
+				nop								iaddiu		vi01,vi01,2
+				nop								iaddiu		vi03,vi01,1							; set pointer for vertices
+				nop								lq			vf20,0(vi03)						; load vertex
+				nop								iaddiu		vi11,vi00,0x7fff					; set mask
+				nop								ilwr.x		vi10,(vi01)							; load prim
+				nop								iand		vi10,vi10,vi11						; mask.counter for vertices
+				mulax		ACC,vf01,vf20x		lq			vf19,0(vi01)						; load prim giftag
+				madday		ACC,vf02,vf20y		iaddiu		vi02,vi03,218						; set pointer for xgkick
+				maddaz		ACC,vf03,vf20z		iaddi		vi04,vi00,-2
+				maddw		vf25,vf04,vf00w		iaddi		vi05,vi00,-2
+				nop								iaddi		vi06,vi00,-2
+				nop								sq			vf17,0(vi02)						; store giftag
+				nop								sq			vf18,1(vi02)						; store nop
+				nop								div			Q,vf00w,vf25w
+				nop								sq			vf19,2(vi02)						; store prim giftag
+				nop								iaddiu		vi07,vi02,4							; set pointer for st
+				nop								move		vf22,vf00
+				nop								move		vf23,vf00
+				nop								move		vf24,vf00
+				nop								iaddiu		vi02,vi02,2
+				nop								iwlr		vi13,(vi03)
+				LOOP:
+				mulax		ACC,vf05,vf20x		move		vf22,vf23
+				madday		ACC,vf06,vf20y		move		vf23,vf24
+				maddaz		ACC,vf07,vf20z		lq			vf19,3(vi03)						; load st
+				maddw		vf24,vf08,vf00w		lq			vf21,2(vi03)						; load color
+				clipw.xyz	vf22,vf22w			iadd		vi04,vi00,vi05
+				mulq		vf25,vf25,Q			iadd		vi05,vi00,vi06
+				mulax		ACC,vf13,vf20x		lq			vf19,3(vi03)
+				madday		ACC,vf14,vf20y		lq			vf28,16(vi00)
+				maddaz		ACC,vf15,vf20z		nop
+				maddw		vf09,vf16,vf00w		nop
+				mulx		vf19,vf19,vf00w		nop
+				nop								nop
+				nop								nop
+				mulx.xy		vf09,vf09,vf28x		nop
+				nop								nop
+				nop								nop
+				nop								nop
+				addx.x		vf19,vf09,vf00x		nop
+				nop								nop
+				nop								nop
+				nop								nop
+				addy.y		vf19,vf19,vf09y		nop
+				nop								nop
+				nop								nop
+				nop								nop
+				addw.xyz	vf19,vf19,vf00w		nop
+				nop								nop
+				nop								nop
+				nop								loi			0.5
+				muli.xy		vf19,vf19,I			nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								sq			vf19,3(vi03)
+				mulq.xyz	vf28,vf19,Q			lq			vf20,4(vi03)
+				clipw.xyz	vf23,vf13w			iaddiu		vi03,vi03,4							; next vertice
+				clipw.xyz	vf24,vf24w			iaddiu		vi07,vi07,3							; next st
+				ftoi4		vf27,vf25			iaddi		vi10,vi10,-1
+				mulax		ACC,vf01,vf20x		sq			vf28,-4(vi07)						; store st
+				madday		ACC,vf02,vf20y		nop
+				ftoi0		vf26,vf21			fcand		vi01,0x3f
+				maddaz		ACC,vf03,vf20z		sq			vf27,-2(vi07)						; store vertex
+				maddw		vf25,vf04,v20w		iadd		vi06,vi00,vi01
+				nop								iadd		vi04,vi04,vi05
+				nop								sq			vf26,-3(vi07)						; store color
+				nop								iadd		vi04,vi04,vi06
+				nop								nop
+				nop								ibgtz		vi04,XYZ3							; vi04 > 0
+				nop								nop
+				nop								iadd		vi04,vi04,vi13
+				nop								ilwr.w		vi13,(vi03)
+				nop								ibgtz		vi04,KICK_XYZ3
+				nop								nop
+				XYZ2:
+				nop								div			Q,vf00w,vf25w
+				nop								ibne		vi10,vi00,LOOP
+				nop								nop
+				nop								xgkick		vi02
+				nop[E]							nop
+				nop								nop
+				nop								b			START
+				nop								nop
+				XYZ3:
+;--- check triangle that has no necesary to scissor ---
+				nop								fcor		vi01,0xff7df7						; ^0x8208
+				nop								ibne		vi01,vi00,XYZ3_ONLY
+				nop								nop
+				nop								fcor		vi01,0xffbefb						; ^0x4104
+				nop								ibne		vi01,vi00,XYZ3_ONLY
+				nop								nop
+				nop								fcor		vi01,0xffdf7d						; ^0x2082
+				nop								ibne		vi01,vi00,XYZ3_ONLY
+				nop								nop
+				nop								fcor		vi01,0xffefbe						; ^0x1041
+				nop								ibne		vi01,vi00,XYZ3_ONLY
+				nop								nop
+				nop								fcor		vi01,0xfdf7df						; ^0x20820
+				nop								ibne		vi01,vi00,XYZ3_ONLY
+				nop								nop
+				nop								fcor		vi01,0xfefbef						; ^0x10410
+				nop								ibne		vi01,vi00,XYZ3_ONLY
+				nop								nop
+
+				adda		ACC,vf22,vf23		loi			1
+				maddu		vf28,vf24,I			loi			0.3333333
+				nop								sqd.xyzw	vf20,(--vi14)
+				nop								sqd.xyzw	vf21,(--vi14)
+				nop								sqd.xyzw	vf22,(--vi14)
+				muli		vf28,vf28,I			sqd.xyzw	vf23,(--vi14)
+				nop								sqd.xyzw	vf24,(--vi14)
+				nop								sqd.xyzw	vf25,(--vi14)
+				nop								sqd.xyzw	vf31,(--vi14)
+				nop								isubiu		vi14,vi14,1
+				nop								iswr.x		vi02,(vi14)
+				sub			vf25,vf22,vf28		iswr.y		vi03,(vi14)
+				sub			vf26,vf23,vf28		iswr.z		vi05,(vi14)
+				sub			vf27,vf24,vf28		isubiu		vi14,,vi14,1
+				nop								iswr.x		vi06,(vi14)
+				nop								iswr.y		vi07,(vi14)
+				nop								iswr.z		vi10,(vi14)
+				nop								bal			vi15,SCISSOR
+				nop								nop
+				nop								ilwr.x		vi06,(vi14)
+				nop								ilwr.y		vi07,(vi14)
+				nop								ilwr.z		vi10,(vi14)
+				nop								iaddiu		vi14,vi14,1
+				nop								ilwr.x		vi02,(vi14)
+				nop								ilwr.y		vi03,(vi14)
+				nop								ilwr.z		vi05,(vi14)
+				nop								iaddiu		vi14,vi14,1
+				nop								lqi			vf31,(vi14++)
+				nop								lqi			vf25,(vi14++)
+				nop								lqi			vf24,(vi14++)
+				nop								lqi			vf23,(vi14++)
+				nop								lqi			vf22,(vi14++)
+				nop								lqi			vf21,(vi14++)
+				nop								lqi			vf20,(vi14++)
+				nop								ilwr.w		vi13,(vi03)
+				KICK_XYZ3:
+				nop								iaddiu		vi11,vi00,0x7fff					; set mask
+				nop								iaddi		vi11,vi11,1							; set xyz3 flag
+				XYZ3_ONLY:
+				nop								isw.w		vi11,-2(vi07)						; kick XYZ3
+				nop								b			XYZ2
+				nop								nop
+				SCISSOR:
+				PUSHTRIANGLE:
+				mulaw		ACC,vf28,vf00w		loi			1.005
+				maddi		vf22,vf25,I			iaddiu		vi08,vi00,61						; link buffer pointer
+				mulaw		ACC,vf28,vf00w		iaddiu		vi09,vi00,101						; link buffer pointer(61+10*4)
+				maddi		vf23,vf26,I			nop
+				mulaw		ACC,vf26,vf00w		nop
+				maddi		vf24,vf27,I
+				nop								nop
+
+				nop								sq			vf22,0(vi08)						; set recent 3 point
+				nop								sq			vf23,3(vi08)
+				nop								sq			vf24,6(vi08)
+				nop								sq			vf22,9(vi08)						; add first element to end
+
+				nop								lq			vf22,-9(vi03)						; load&save texUV
+				nop								lq			vf23,-5(vi03)
+				nop								lq			vf24,-1(vi03)
+				nop								sq			vf22,2(vi08)
+				nop								sq			vf23,5(vi08)
+				nop								sq			vf24,8(vi08)
+				nop								sq			vf22,11(vi08)
+
+				nop								lq			vf22,-9(vi07)						; load&save color
+				nop								lq			vf23,-6(vi07)
+				nop								lq			vf24,-3(vi07)
+				itof0		vf22,vf22			nop
+				itof0		vf23,vf23			nop
+				itof0		vf24,vf24			nop
+				nop								sq			vf22,1(vi08)
+				nop								sq			vf23,4(vi08)
+				nop								sq			vf24,7(vi08)
+				nop								sq			vf22,10(vi08)
+
+				PLANE_START:
+				ZMINUS:
+				nop								iaddiu		vi05,vi00,0x800						; 2nd -z
+				nop								iaddiu		vi06,vi00,0x020						; 1st -z
+				nop								iaddiu		vi07,vi00,2							; set Z flag
+				nop								iaddiu		vi08,vi00,61						; buff point1
+				nop								iaddiu		vi09,vi00,101						; buff point2
+				nop								iaddiu		vi10,vi00,3							; num of vertex
+				subw.x		vf30,vf00,vf00w		iaddiu		vi11,vi00,0
+				nop								lqi			vf21,(vi08++)						; load -1(plane normal flag)
+				nop								lqi			vf22,(vi08++)
+				nop								lqi			vf23,(vi08++)
+				LOOP_ZM:
+				nop								isubiu		vi10,vi10,1
+				nop								bal			vi02,CLIP_INTER
+				nop								nop
+				nop								ibne		vi10,vi00,LOOP_ZM
+				nop								nop
+				nop								iaddiu		vi08,vi00,101
+				nop								bal			vi02,SAVE_LAST_LOOP
+				nop								nop
+				END_ZM:
+				nop								ibeq		vi11,vi00,END_ALL
+				nop								nop
+
+
+				ZPLUS:
+				nop								iaddiu		vi05,vi00,0x400						; 2nd +z
+				nop								iaddiu		vi06,vi00,0x010						; 1st +z
+				nop								iaddiu		vi07,vi00,2							; set Z flag
+				nop								iaddiu		vi08,vi00,101						; flip pointer
+				nop								iaddiu		vi09,vi00,61
+				nop								iadd		vi10,vi00,vi11						; num of vertex
+				addw.x		vf30,vf00,vf00w		iaddiu		vi11,vi00,0							; load 1(plane normal flag)
+				nop								lqi			vf21,(vi08++)
+				nop								lqi			vf22,(vi08++)
+				nop								lqi			vf23,(vi08++)
+				LOOP_ZP:
+				nop								isubiu		vi10,vi10,1
+				nop								bal			vi02,CLIP_INTER
+				nop								nop
+				nop								ibne		vi10,vi00,LOOP_ZP
+				nop								nop
+				nop								iaddiu		vi08,vi00,61
+				nop								bal			SAVE_LAST_LOOP
+				nop								nop
+				END_ZP:
+				nop								ibeq		vi11,vi00,END_ALL
+				nop								nop
+
+				XMINUS:
+				nop								iaddiu		vi05,vi00,0x080						; 2nd -x
+				nop								iaddiu		vi06,vi00,0x002						; 1st -x
+				nop								iaddiu		vi07,vi00,0							; set Z flag
+				mop			iaddiu				vi08,vi00,61									; flip pointer
+				nop								iaddiu		vi09,vi00,101
+				nop								iadd		vi10,vi00,vi11
+				subw.x		vf30,vf00,vf00w		iaddiu		vi11,vi00,0							; load -1 (plane normal flag)
+				nop								lqi			vf21,(vi08++)
+				nop								lqi			vf22,(vi08++)
+				nop								lqi			vf23,(vi08++)
+				LOOP_XM:
+				nop								isubiu		vi10,vi10,1
+				nop								bal			vi02,CLIP_INTER
+				nop								nop
+				nop								ibne		vi10,vi00,LOOP_XM
+				nop								nop
+				nop								iaddiu		vi08,vi00,101
+				nop								bal			vi02,SAVE_LAST_LOOP
+				nop								nop
+				END_XM:
+				nop								ibeq		vi11,vi00,END_ALL
+				nop								nop
+
+				XPLUS:
+				nop								iaddiu		vi05,vi00,0x040						; 2nd +x
+				nop								iaddiu		vi06,vi00,0x001						; 1st +x
+				nop								iaddiu		vi07,vi00,0							; set Z flag
+				nop								iaddiu		vi08,vi00,101
+				nop								iaddiu		vi09,vi00,61
+				nop								iadd		vi10,vi00,vi11
+				addw.x		vf30,vf00,vf00w		iaddiu		vi11,vi00,0							; load 1(plane normal flag)
+				nop								lqi			vf21,(vi08++)
+				nop								lqi			vf22,(vi08++)
+				nop								lqi			vf23,(vi08++)
+				LOOP_XP:
+				nop								isubiu		vi10,vi10,1
+				nop								bal			vi02,CLIP_INTER
+				nop								nop
+				nop								ibne		vi10,vi00,LOOP_XP
+				nop								nop
+				nop								iaddiu		vi08,vi00,61
+				nop								bal			vi02,SAVE_LAST_LOOP
+				nop								nop
+				END_XP:
+				nop								ibeq		vi11,vi00,END_ALL
+				nop								nop
+
+				YMINUS:
+				nop								iaddiu		vi05,vi00,0x200						; 2nd -y
+				mop			iaddiu				vi06,vi00,8										; 1st -y
+				nop								iaddiu		vi07,vi00,1							; set y flag
+				nop								iaddiu		vi08,vi00,61						; flip pointer
+				nop								iaddiu		vi09,vi00,101
+				nop								iadd		vi10,vi00,vi11
+				subw.x		vf30,vf00,vf00w		iaddiu		vi11,vi00,0							; load -1(plane normal flag)
+				nop								lqi			vf21,(vi08++)
+				nop								lqi			vf22,(vi08++)
+				nop								lqi			vf23,(vi08++)
+				LOOP_YM:
+				nop								isubiu		vi10,vi10,1
+				nop								bal			vi02,CLIP_INTER
+				nop								nop
+				nop								ibne		vi10,vi00,LOOP_YM
+				nop								nop
+				nop								iaddiu		vi08,vi00,101
+				nop								bal			vi02,SAVE_LAST_LOOP
+				nop								nop
+				END_YM:
+				nop								ibeq		vi11.vi00,END_ALL
+				nop								nop
+
+				YPLUS:
+				nop								iaddiu		vi05,vi00,0x100						; 2nd +y
+				nop								iaddiu		vi06,vi00,0x004						; 1st +y
+				nop								iaddiu		vi07,vi00,1							; set Z flag
+				nop								iaddiu		vi08,vi00,101						; flip pointer
+				nop								iaddiu		vi09,vi00,61
+				nop								iadd		vi10,vi00,vi11
+				addw.x		vf30,vf00,vf00w		iaddiu		vi11,vi00,0							; load 1(plane normal flag)
+				nop								lqi			vf21,(vi08++)
+				nop								lqi			vf22,(vi08++)
+				nop								lqi			vf23,(vi08++)
+				LOOP_YP:
+				nop								isubiu		vi10,vi10,1
+				nop								bal			vi02,CLIP_INTER
+				nop								nop
+				nop								ibne		vi10,vi00,LOOP_YP
+				nop								nop
+				nop								iaddiu		vi08,vi00,61
+				nop								bal			vi02,SAVE_LAST_LOOP
+				nop								nop
+				END_YP:
+				nop								ibeq		vi11,vi00,END_ALL
+				nop								nop
+
+				nop								iaddiu		vi08,vi00,61
+				nop								iaddiu		vi09,vi00,101
+				nop								iadd		vi10,vi00,vi11
+				nop								iaddiu		vi11,vi00,0
+				nop								bal			vi01,DrawScissorPolygon
+				nop								nop
+
+				END_ALL:
+				nop								jr			vi15
+				nop								nop
+
+
+
+				SAVE_LAST_LOOP:
+				nop								lq			vf21,0(vi08)
+				nop								lq			vf22,1(vi08)
+				nop								lq			vf23,2(vi08)
+				nop								sqi			vf21,(vi09++)
+				nop								sqi			vf22,(vi09++)
+				nop								sqi			vf23,(vi09++)
+				nop								jr			vi02
+				nop								nop
+
+
+;-------------------------------------------------------------------
+;	[ Tracing TriangleFan vertex list ]
+;	To trace and check two link points on the vertex list
+;	(Are current&next points inside or outside against the plane?),
+;	we can get the cross point and add it to the list.
+;--------------------------------------------------------------------
+
+				CLIP_INTER:
+				add			vf17,vf31,vf21		lqi			vf21,(vi08++)						; Load current&next
+				add			vf18,vf31,vf22		lqi			vf22,(vi08++)
+				add			vf19,vf31,vf23		lqi			vf23,(vi08++)
+				nop								nop
+				clipw.xyz	vf17,vf17w			nop
+				clipw.xyz	vf21,vf21w			nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								fcget		vi01
+				nop								iand		vi04,vi01,vi05						; currmask
+				nop								nop
+				nop								ibeq		vi04,vi00,CUR_IN
+				nop								nop
+
+				CUR_OUT:																		; current is outside
+				nop								iand		vi04,vi01,vi06
+				nop								nop
+				nop								ibeq		vi04,vi00,CO_NEXT_IN
+				nop								nop
+				CO_NEXT_OUT:
+
+				nop								b			CLIP_INTER_END						; do nothing
+				nop								nop
+				CO_NEXT_IN:																		; curr is out & next is in (save cross point only)
+				nop								bal			vi01,INTERPOLATE
+				nop								nop
+				nop								sqi			vf25,(vi09++)
+				nop								sqi			vf26,(vi09++)
+				nop								sqi			vf27,(vi09++)
+				nop								iaddiu		vi11,vi11,1
+				nop								b			CLIP_INTER_END
+				nop								nop
+
+				CUR_IN:																			; current is inside
+				nop								iand		vi04,vi01,vi06
+				nop								nop
+				nop								ibeq		vi04,vi00,CI_NEXT_IN
+				nop								nop
+
+				CI_NEXT_OUT:																	; curr is in & next is out (save both curr&cross point)
+				nop								bal			vi01,INTERPOLATE
+				nop								nop
+				nop								sqi			vf17,(vi09++)
+				nop								sqi			vf18,(vi09++)
+				nop								sqi			vf19,(vi09++)
+				nop								sqi			vf25,(vi09++)
+				nop								sqi			vf26,(vi09++)
+				nop								sqi			vf27,(vi09++)
+				nop								iaddiu		vi11,vi11,2
+				nop								b			CLIP_INTER_END
+				nop								nop
+
+				CI_NEXT_IN:																		; curr is in & next is in (save curr point only)
+				nop								sqi			vf17,(vi09++)
+				nop								sqi			vf18,(vi09++)
+				nop								sqi			vf19,(vi09++)
+				nop								iaddiu		v11,v11,1
+
+				CLIP_INTER_END:
+				nop[T]							jr			vi02
+				nop								nop
+
+;---------------------------------------------------------------
+;	Function for Crossing point detection
+;
+;	c: current point (clipping coordinate)
+;	n: next point (clipping coordinate)
+;---------------------------------------------------------------
+
+				INTERPOLATE:
+				mulx.w		vf25,vf17,vf30x		nop												; sgn*c[w]
+				mulx.w		vf26,vf21,vf30x		nop												; sgn*m[w]
+				nop								iadd		vi12,vi00,vi07						; Num of rotation
+				subw		vf25,vf17,vf25w		nop												; c[xyz]-sgn*c[w]
+				subw		vf26,vf21,vf26w		nop												; n[xyz]-sgn*n[w]
+				nop								nop
+				LOOP_ROT:
+				nop								ibeq		vi12,vi00,LOOP_ROT_END
+				nop								nop
+				nop								mr32		vf25,vf25
+				nop								mr32		vf26,vf26
+				nop								isubiu		vi12,vi12,1
+				nop								b			LOOP_ROT
+				nop								nop
+				LOOP_ROT_END:
+				sub.xyz		vf27,vf26,vf25		nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								div			Q,vf25x,vf27x
+				nop								waitq
+				addq.x		vf29,vf00,Q			nop
+				abs.x		vf29,vf29			nop												; ans = |(c-cw)/((n-nw)+(c-cw))|
+				sub			vf25,vf21,vf17		nop												; n - c
+				sub			vf26,vf22,vf18		nop
+				sub			vf27,vf23,vf19		nop
+				mulx		vf25,vf25,vf29x		nop												; ans*(n-c)
+				mulx		vf26,vf26,vf29x		nop
+				mulx		vf27,vf27,vf29x		nop
+				add			vf25,vf25,vf17		nop												; c+ans*(n-c)
+				add			vf26,vf26,vf18		nop
+				add			vf27,vf27,vf19		nop
+				nop								jr			vi01
+				nop								nop
+
+;-------------------------------------------------------------
+;
+; Perspective projection & XGKICK for Clipped Polygon
+;
+; there is no necessory to calculate lighting color here,
+; bacause we interpolated color which has already lit.
+;-------------------------------------------------------------
+
+				DrawScissorPolygon:
+				START2:
+				nop								lq			vf09,8(vi00)
+				nop								lq			vf10,9(vi00)
+				nop								lq			vf11,10(vi00)
+				nop								lq			vf12,11(vi00)
+				nop								lq			vf20,0(vi08)
+				nop								iadd		vi03,vi00,vi08						; point to start data packet
+				nop								nop
+				nop								iaddiu		vi02,vi00,30						; set XGKICK pointer (30 fix)
+				mulax		ACC.vf09,vf20x		iaddiu		vi11,vi00,0x7fff					; set mask
+				madday		ACC,vf10,vf20y		iaddiu		vi11,vi11,1
+				maddaz		ACC,vf11,vf20z		isw.x		vi11,0(vi02)
+				maddw		vf25,vf12,vf20w		iaddiu		vi07,vi02,2							; set store pointer for RGBAQ
+				nop								iaddiu		vi11,vi10,0x7fff					; set mask
+				nop								iaddiu		vi11,vi11,1
+				nop								xgkick		vi02
+				nop								div			Q,vf00w,vf25w
+				nop								isw.x		vi11,0(vi02)
+				LOOP2:
+				nop								lq			vf20,1(vi03)						; load color
+				nop								lq			vf21,2(vi03)						; load st
+				nop								iaddiu		vi11,vi00,0x7fff					; set mask
+				nop								nop
+				ftoi0		vf29,vf20			iaddi		vi11,vi11,1							; set XYZ3 flag
+				mulq.xyz	vf28,vf21,Q			lq			vf20,3(vi03)
+				mulq		vf25,vf25,Q			iaddi		vi10,vi10,-1
+				mulax		ACC,vf09,vf20x		nop
+				madday		ACC,vf10,vf20y		iadd		vi04,vi00,vi13
+				maddaz		ACC,vf11,vf20z		sq			vf29,0(vi07)
+				ftoi4		vf26,vf26			nop
+				maddw		vf25,vf12,vf20w		sq			vf27,-1(vi07)
+				nop								iaddiu		vi07,vi07,3
+				nop								iaddiu		vi03,vi03,3
+				nop								sq			vf26,-2(vi07)
+				nop								div			Q,vf00w,vf25w
+				nop								ibeq		vi04,vi00,SKIP_KICK_XYZ3
+				nop								nop
+				nop								isw.w		vi11,-2(vi07)						; Kick XYZ3
+				SKIP_KICK_XYZ3:
+				nop								ibne		vi10,vi00,LOOP2
+				nop								nop
+
+; --- send result to GIF and stop ---
+				nop								xgkick		vi02
+				nop								nop
+				nop								jr			vi01
+				nop								nop
