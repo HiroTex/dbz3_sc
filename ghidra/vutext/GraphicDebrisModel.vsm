@@ -1,0 +1,107 @@
+				nop								lq			vf17,0(vi00)						; Load Bone Matrix
+				nop								lq			vf09,4(vi00)						; Load Screen Matrix
+				nop								lq			vf10,5(vi00)
+				nop								lq			vf11,6(vi00)
+				nop								lq			vf12,7(vi00)
+				mulax		ACC,vf09,vf17x		lq			vf18,1(vi00)
+				madday		ACC,vf10,vf17y		lq			vf19,2(vi00)
+				maddaz		ACC,vf11,vf17z		lq			vf20,3(vi00)
+				maddw		vf01,vf12,vf17w		lq			vf05,12(vi00)						; load color
+				mulax		ACC,vf09,vf18x		nop
+				madday		ACC,vf10,vf18y		nop
+				maddaz		ACC,vf11,vf18z		nop
+				maddw		vf02,vf12,vf18w		lq			vf25,8(vi00)						; load Volume Clipping Matrix
+				mulax		ACC,vf09,vf19x		lq			vf26,9(vi00)
+				madday		ACC,vf10,vf19y		lq			vf27,10(vi00)
+				maddaz		ACC,vf11,vf19z		lq			vf28,11(vi00)
+				maddw		vf03,vf12,vf19w		nop
+				mulax		ACC,vf09,vf20x		nop
+				madday		ACC,vf10,vf20y		nop
+				maddaz		ACC,vf11,vf20z		nop
+				maddw		vf04,vf12,vf20w		nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				mulax		ACC,vf25,vf17x		nop
+				madday		ACC,vf26,vf17y		nop
+				madda		ACC,vf27,vf17z		nop
+				maddw		vf13,vf28,vf17w		nop
+				mulax		ACC,vf25,vf18x		iaddiu		vi11,vi10,0x7fff					; set mask
+				madday		ACC,vf26,vf18y		iaddi		vf13,vfi11,1						; set XYZ3 flag
+				maddaz		ACC,vf27,vf18z		nop
+				maddw		vf14,vf28,vf18w		nop
+				mulax		ACC,vf25,vf19x		nop
+				madday		ACC,vf26,vf19y		nop
+				maddaz		ACC,vf27,vf19z		nop
+				maddw		vf15,vf28,vf29w		nop
+				mulax		ACC,vf25,vf20x		nop
+				madday		ACC,vf26,vf20y		nop
+				maddaz		ACC,vf27,vf20z		nop
+				maddw		vf16,vf28,vf20w		nop
+				nop								nop
+				nop[E]							nop
+				nop								nop
+				START:
+				nop								xtop		vi01
+				nop								lq			vf20,3(vi01)						; load vertex
+				nop								lqi			vf17,(vi01++)						; load giftag
+				nop								lqi			vf18,(vi01++)						; load nop reg
+				nop								ilwr.x		vi10,(vi01)							; load prim
+				mulax		ACC,vf01,vf20x		iaddiu		vi03,vi01,1							; set pointer for vertices
+				madday		ACC,vf02,vf20y		iaddiu		vi11,vi00,0x7fff					; set mask
+				maddaz		ACC,vf03,vf20z		lq			vf19,0(vi01)						; load prim giftag
+				maddw		vf24,vf04,vf00w		iand		vi10,vi10,vi11						; mask.counter for vertices
+				mulax		ACC,vf13,vf20x		nop
+				madday		ACC,vf14,vf20y		iaddiu		vi02,vi03,252						; set pointer to xgkick
+				maddaz		ACC,vf15,vf20z		sq			vf19,2(vi02)						; store prim gif tag
+				maddw		vf25,vf16,vf00w		div			Q,vf00w,vf24w
+				nop								iaddiu		vi07,vi02,3							; set pointer for vertices
+				nop								sq			vf17,0(vi02)						; store giftag
+				nop								sq			vf18,1(vi02)						; store nop reg
+				nop								nop
+				nop								nop
+				nop								nop
+				nop								nop
+				LOOP:
+				clipw.xyz	vf25,vf25w			lq			vf22,2(vi03)						; load st
+				mulq		vf24,vf24,Q			ilwr.w		vi09,(vi03)							; load XYZ3 flag
+				nop								nop
+				nop								nop
+				mulq.xyz	vf26,vf22,Q			nop
+				nop								nop
+				ftoi4		vf27,vf24			lq			vf20,3(vi03)						; load next vertex
+				nop								fcand		v1,0x3ffff
+				nop								sq			vf26,0(vi07)						; store st
+				nop								nop
+				nop								sq			vf27,2(vi07)						; store vertex
+				mulax		ACC,vf01,vf20x		lq			vf23,1(vi03)						; load color
+				madday		ACC,vf02,vf20y		nop
+				maddaz		ACC,vf03,vf20z		nop
+				nop								iaddiu		vi03,vi03,3							; next vertice
+				maddw		vf24,vf04,vf00w		move.w		vf23,vf05							; set alpha
+				mulax		ACC,vf13,vf20x		iadd		vi01,vi01,vi09						; set XYZ3 flag
+				madday		ACC,vf14,vf20y		nop
+				ftoi0		vf29,vf23			iaddi		vi10,vi10,-1
+				maddaz		ACC,vf15,vf20z		div			Q,vf00w,vf24w
+				maddw		vf25,vf16,vf00w		iaddiu		vi07,vi07,3
+				nop								ibeq		vi01,vi00,LOOPCOND
+				nop								sq			vf29,-2(vi07)						; store color
+				nop								isw.w		vi13,-1(vi07)						; kick XYZ3
+				LOOPCOND:
+				nop								ibne		vi10,vi00,LOOP
+				nop								nop
+				nop								nop
+				nop								xgkick		vi02
+				nop[E]							nop
+				nop								nop
+				nop								b			START
+				nop								nop
