@@ -1,0 +1,171 @@
+/*
+ * Possible Header?
+ *                  
+ *
+ * 
+ * 
+ * 
+ *
+ * 
+ *
+ *  
+ *  
+ *  
+ *
+ *  
+ *  
+ *  
+ *
+ *  
+ *  
+ *  
+ *
+ *  
+ *  
+ *  
+ *
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "char_common.vsm" 
+.EndMPG
+.align 4
+
+/*
+ *  
+ *  
+ * 
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "char_envmap.vsm" 
+.EndMPG
+.align 4
+
+/*
+ *  
+ *  
+ * 
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "char_vtx_shadow_1.vsm" 
+.EndMPG
+.align 4
+
+/*
+ *  
+ *  
+ * 
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "char_vtx_shadow_2.vsm" 
+.EndMPG
+.align 4
+
+/*
+ *  
+ *  
+ * 
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "map_common_s9gilj.vsm"
+.EndMPG
+.align 4
+
+/*
+ *  
+ *  
+ * 
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "unknown_a1fbrezn.vsm"
+.EndMPG
+.align 4
+
+/*
+ *  
+ *  
+ * 
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "tex_shadow_f98xmj.vsm"
+.EndMPG
+.align 4
+
+/*
+ *  
+ *  
+ * 
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "map_debris.vsm"
+.EndMPG
+.align 4
+
+/*
+ *  
+ *  
+ * 
+ *  
+ *  
+ *  
+ *  
+ *  
+ */
+
+MPG 0, *
+.include "map_epk.vsm"
+.EndMPG
